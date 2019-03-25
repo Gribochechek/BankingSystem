@@ -4,7 +4,6 @@ import model.dao.BankAccountDao;
 import model.dao.DepositDao;
 import model.dao.config.DataBaseConfiguration;
 import model.entity.DepositAccount;
-import model.service.DepositAccountService;
 
 import java.util.List;
 
@@ -27,10 +26,7 @@ public class AccountBalanceIncrementorImpl implements AccountBalanceincrementor 
         try (DepositDao depositDao = DataBaseConfiguration.factory.createDepositDao()) {
             List<DepositAccount> depositsForUpdate = depositDao.findAllDepositAccounts();
 
-            for (DepositAccount deposit : depositsForUpdate) {
-                deposit.setBalance(DepositAccountService.countDepositIncome(deposit, deposit.getDepositTariff(), JobsExecutor.summarySeconds));
-
-            }
+            depositDao.updateDepositAccountBalanceByAccountId(depositsForUpdate);
 
 
         }

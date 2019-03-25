@@ -27,7 +27,6 @@ public class RegistrationFormDto {
             registrationForm.firstName = firstName;
             return this;
         }
-
         public Builder setLastName(String lastName) {
             registrationForm.lastName = lastName;
             return this;

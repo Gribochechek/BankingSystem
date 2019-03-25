@@ -39,7 +39,6 @@ public enum Languages {
 
     /**
      * Delegate method to check if enum contains given languageName
-     *
      * @param languageName
      * @return true if given language name exists
      */
@@ -51,8 +50,7 @@ public enum Languages {
 
     /**
      * Load text and regex properties by given path
-     *
-     * @param textPath  - path to property file with text messages
+     * @param textPath - path to property file with text messages
      * @param regexPath - path to property file with regexes
      */
     Languages(String textPath, String regexPath) {
@@ -63,7 +61,6 @@ public enum Languages {
 
     /**
      * Method return properties with text samples on current language
-     *
      * @return Properies with text samples
      */
     public Properties getTextProperties() {
@@ -72,7 +69,6 @@ public enum Languages {
 
     /**
      * Method return properties with regexes for current language
-     *
      * @return Properies with regex rules
      */
     public Properties getRegexProperties() {

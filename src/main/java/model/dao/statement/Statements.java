@@ -152,7 +152,7 @@ public interface Statements {
             + " WHERE "
             + BankAccountTable.BANK_ACCOUNT_TABLE + "." + BankAccountTable.BANK_ACCOUNT_ID + " = ? ";
 
-    String UPDATE_DEPOSIT_ACCOUNT_BALANCE_INDEBTEDNESS_BY_BANK_ACCOUNT_ID = "UPDATE "
+    String UPDATE_DEPOSIT_ACCOUNT_BALANCE_BY_BANK_ACCOUNT_ID = "UPDATE "
             + BankAccountTable.BANK_ACCOUNT_TABLE
             + " SET  " + BankAccountTable.BANK_ACCOUNT_BALANCE + " = ? "
             + " WHERE "

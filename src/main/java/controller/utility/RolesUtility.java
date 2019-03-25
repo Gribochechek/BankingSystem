@@ -18,7 +18,6 @@ public class RolesUtility {
         session.setAttribute(Parameters.USER, user);
         System.out.println("USER HAS BEEN ADDED TO SESSION. LOGIN :: " + user.getLogin());
     }
-
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static boolean isUserAlreadyLogged(HttpServletRequest request, String login) {
         HashSet<String> loggedUsers = (HashSet<String>) request.getServletContext().getAttribute(Parameters.LOGGED_USERS);
@@ -31,7 +30,6 @@ public class RolesUtility {
         System.out.println("LOGIN HAS BEEN ADDED TO CONTEXT. LOGIN :: " + login);
         //request.getServletContext().setAttribute(Parameters.LOGGED_USERS,loggedUsers);
     }
-
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void logoutUser(HttpServletRequest request) {
         HttpSession session = request.getSession();

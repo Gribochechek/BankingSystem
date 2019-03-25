@@ -1,7 +1,7 @@
 package controller.utility;
 
 /**
- * Initialization interface with paths to property files
+ *Initialization interface with paths to property files
  */
 public interface PropertyPath {
 
