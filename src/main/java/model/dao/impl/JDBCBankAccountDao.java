@@ -86,9 +86,8 @@ public class JDBCBankAccountDao extends AbstractJDBCGenericDao<BankAccount> impl
             int generatedKey = rs.getInt(1);
 
             ///////////////////////////////////////////////////////////////////////////////////////////
-            PreparedStatement getUserIdByAccountIdStatement = connection
-                    .prepareStatement(Statements.GET_USER_ID_BY_ACCOUNT_ID);
-            preparedStatement.setInt(1, toAccountId);
+            PreparedStatement getUserIdByAccountIdStatement = connection.prepareStatement(Statements.GET_USER_ID_BY_ACCOUNT_ID);
+            getUserIdByAccountIdStatement.setInt(1, toAccountId);
             ResultSet resultSet = getUserIdByAccountIdStatement.executeQuery();
             if (!resultSet.next()) {
                 throw new BankAccountNotExistException();
@@ -122,6 +121,28 @@ public class JDBCBankAccountDao extends AbstractJDBCGenericDao<BankAccount> impl
             throw new RuntimeException(e);
         }
     }
+
+
+    /*@Override
+    todo check method
+    public List<DepositAccount> findAllDepositAccounts(int bankAccountType) {
+        List<DepositAccount> depositsToUpdate = new LinkedList<>();
+        Connection connection = super.getConnection();
+        try {
+            PreparedStatement depositsForUpdate = connection.prepareStatement(Statements.SELECT_DEPOSITS_FOR_UPDATE);
+            depositsForUpdate.setInt(1, bankAccountType);
+            ResultSet resultSet = depositsForUpdate.executeQuery();
+            Extracter<DepositAccount> extracter = new Extracter<>();
+            while (resultSet.next()) {
+                depositsToUpdate.add(extracter.extractEntityFromResultSet(resultSet, new DepositAccount()));
+            }
+
+
+        } catch (SQLException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return depositsToUpdate;
+    }*/
 
     @Override
     public List<BankAccount> findAll() {

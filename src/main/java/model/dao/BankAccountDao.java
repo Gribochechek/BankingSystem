@@ -9,4 +9,7 @@ public interface BankAccountDao extends GenericDao<BankAccount> {
     public List<BankAccount> findAllBankAccountByUserId(int userId);
 
     boolean pay(int fromAccountId, int fromUserId, int toAccountId, int price) throws BankAccountNotExistException;
+
+
+    // todo check List<DepositAccount> findAllDepositAccounts(int accountTypeId);
 }

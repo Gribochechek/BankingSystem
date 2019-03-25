@@ -38,7 +38,7 @@ public interface Statements {
             + TableConstants.USER_PASSWORD + " = ?";
     */
     String GET_USER_ID_BY_ACCOUNT_ID = "SELECT " + BankAccountTable.BANK_ACCOUNT_USER_ID
-            + " FROM " + BankAccountTable.BANK_ACCOUNT_TABLE + " WHERE " + BankAccountTable.BANK_ACCOUNT_ID + " =?";
+            + " FROM " + BankAccountTable.BANK_ACCOUNT_TABLE + " WHERE " + BankAccountTable.BANK_ACCOUNT_ID + " = ?";
 
 
     String SELECT_USER_BY_LOGIN_PASSWORD = "SELECT "
@@ -149,6 +149,12 @@ public interface Statements {
             + BankAccountTable.BANK_ACCOUNT_CREDIT_INDEBTEDNESS + " = ? " + ", "
             + BankAccountTable.BALANCE_IN_CONTRACT + " = ? " + ", "
             + BankAccountTable.BANK_ACCOUNT_TYPE_ID + " = ? "
+            + " WHERE "
+            + BankAccountTable.BANK_ACCOUNT_TABLE + "." + BankAccountTable.BANK_ACCOUNT_ID + " = ? ";
+
+    String UPDATE_DEPOSIT_ACCOUNT_BALANCE_INDEBTEDNESS_BY_BANK_ACCOUNT_ID = "UPDATE "
+            + BankAccountTable.BANK_ACCOUNT_TABLE
+            + " SET  " + BankAccountTable.BANK_ACCOUNT_BALANCE + " = ? "
             + " WHERE "
             + BankAccountTable.BANK_ACCOUNT_TABLE + "." + BankAccountTable.BANK_ACCOUNT_ID + " = ? ";
 
@@ -309,6 +315,15 @@ public interface Statements {
             + HistoryTable.HISTORY_TABLE + "." + HistoryTable.ACCOUNT_TO + " = ? "
             + ")"
             + ")";
+
+    String SELECT_DEPOSITS_FOR_UPDATE = "SELECT" + "*" + "FROM" + BankAccountTable.BANK_ACCOUNT_TABLE + "WHERE" + BankAccountTable.BANK_ACCOUNT_TYPE_ID + " = ? ";
+
+    String SELECT_ALL_DEPOSIT_BY_ACCOUNT_TYPE_ID = "SELECT * FROM " + BankAccountTable.BANK_ACCOUNT_TABLE
+            + " INNER JOIN " + DepositTable.DEPOSIT_TABLE
+            + " ON " + BankAccountTable.BANK_ACCOUNT_TABLE + "." + BankAccountTable.BANK_ACCOUNT_DEPOSIT_ID
+            + " = "
+            + DepositTable.DEPOSIT_TABLE + "." + DepositTable.DEPOSIT_ID
+            + " WHERE " + BankAccountTable.BANK_ACCOUNT_TYPE_ID + " = ?";
 
 
     /*

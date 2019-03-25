@@ -57,12 +57,10 @@ public class User implements Entity {
             user.id = id;
             return this;
         }
-
         public Builder setFirstName(String firstName) {
             user.firstName = firstName;
             return this;
         }
-
         public Builder setLastName(String lastName) {
             user.lastName = lastName;
             return this;

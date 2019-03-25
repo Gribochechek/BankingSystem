@@ -7,8 +7,10 @@ import java.util.List;
 
 public interface DepositDao extends GenericDao<DepositAccount> {
     void registerDeposit(DepositAccount depositAccount) throws TariffNotExistException;
-
     List<DepositAccount> findAllByUserId(int userId);
-
     List<DepositAccount> findAllByUserBankAccountId(int bankAccountId);
+
+    List<DepositAccount> findAllDepositAccounts();
+
+    void updateDepositAccountBalanceByAccountId(int depositId, int balance);
 }

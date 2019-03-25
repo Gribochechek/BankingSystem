@@ -3,6 +3,7 @@ package model.dao.impl;
 import model.dao.DepositDao;
 import model.dao.extracter.Extracter;
 import model.dao.statement.Statements;
+import model.dao.statement.TableConstants;
 import model.entity.DepositAccount;
 import model.entity.DepositTariff;
 import model.exception.TariffNotExistException;
@@ -146,6 +147,45 @@ public class JDBCDepositDao extends AbstractJDBCGenericDao<DepositAccount> imple
         }
         return depositAccounts;
     }
+
+    @Override
+    public List<DepositAccount> findAllDepositAccounts() {
+        List<DepositAccount> depositAccounts = new LinkedList<>();
+        try {
+            PreparedStatement preparedStatement = super.getConnection()
+                    .prepareStatement(Statements.SELECT_ALL_DEPOSIT_BY_ACCOUNT_TYPE_ID);
+            preparedStatement.setInt(1, TableConstants.ACCOUNT_TYPE_DEPOSIT);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Extracter<DepositAccount> depositExtracter = new Extracter<>();
+            Extracter<DepositTariff> depositTarrifExtracter = new Extracter<>();
+            DepositAccount depositAccount;
+            while (resultSet.next()) {
+                depositAccount = depositExtracter.extractEntityFromResultSet(resultSet, new DepositAccount());
+                depositAccount.setDepositTariff(depositTarrifExtracter
+                        .extractEntityFromResultSet(resultSet, new DepositTariff()));
+                depositAccounts.add(depositAccount);
+            }
+        } catch (SQLException | IllegalAccessException e) {
+            Logger.getLogger(JDBCBankAccountDao.class.getName()).error("find deposits by user id", e);
+            throw new RuntimeException(e);
+        }
+        return depositAccounts;
+
+    }
+
+    @Override
+    public void updateDepositAccountBalanceByAccountId(int depositId, int balance) {
+        try {
+            PreparedStatement preparedStatement = super.getConnection()
+                    .prepareStatement(Statements.UPDATE_DEPOSIT_ACCOUNT_BALANCE_INDEBTEDNESS_BY_BANK_ACCOUNT_ID);
+            preparedStatement.setInt(1, balance);
+            preparedStatement.setInt(2, depositId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void update(DepositAccount entity) {
