@@ -21,12 +21,6 @@ public class AccountBalanceIncrementorImpl implements AccountBalanceincrementor 
 
             creditDao.updateAllCreditIndebtnessByAccountId(creditsWithCountedIndebtness);
 
-
-            // todo implement method for update balance
-            //bankAccountDao. .....
-            // select QUERY for contract_balance and tarrif rate
-            // count income by rate and first balance spescified in contract
-            // update QUERY
         }
     }
 
@@ -40,17 +34,6 @@ public class AccountBalanceIncrementorImpl implements AccountBalanceincrementor 
             depositDao.updateAllDepositAccountsBalanceByAccountId(depositWithCountedBalance);
 
         }
-
-        //bankAccountDao. .....
-        // todo implement method for update balance
-        //bankAccountDao. .....
-        // select QUERY for contract_balance and tarrif rate
-        // count income by rate and first balance spescified in contract
-        // update QUERY
-
-        // todo check  List<DepositAccount> depositsToUpdate = BankAccountService.getAllByBankAccountTypeID(TableConstants.ACCOUNT_TYPE_DEPOSIT);
-        //List<DepositTariff> depositTariffs = DepositAccountService.getAllDepositTariffs();
-
 
     }
 

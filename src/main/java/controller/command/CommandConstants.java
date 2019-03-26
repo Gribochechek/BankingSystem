@@ -19,9 +19,7 @@ public interface CommandConstants {
 
 
     String BANK_ACCOUNTS_COMMAND = "bankAccounts";
-    String CREDITS_COMMAND = "credits";
     String USER_UNCONFIRMED_CREDITS_COMMAND = "unconfirmedCredits";
-    String DEPOSITS_COMMAND = "deposits";
     String CREDIT_PAGE_COMMAND = "CREDIT";
     String DEPOSIT_PAGE_COMMAND = "DEPOSIT";
 
