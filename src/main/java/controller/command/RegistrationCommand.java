@@ -6,17 +6,11 @@ import controller.dto.RegistrationFormDto;
 import controller.utility.IOHandler;
 import controller.utility.Languages;
 import controller.utility.RegexKeys;
-import controller.utility.RolesUtility;
 import model.exception.NotUniqueException;
-import model.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class RegistrationCommand implements Command {
-
-    UserService UserService = new UserService();
-    //IOHandler IOHandler = new IOHandler();
-    RolesUtility RolesUtility = new RolesUtility();
 
     @Override
     public String execute(HttpServletRequest request) {

@@ -31,7 +31,6 @@ public interface Parameters {
     String COMPLIANCE_TABLE = "complianceTable";
 
     String PAY_TO_ACCOUNT_ID = "bankAccountTo";
-    String PAY_TO_USER_ID = "userTo";
     String PAY_PRICE = "price";
     String BALANCE = "balance";
 

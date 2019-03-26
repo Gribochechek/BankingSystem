@@ -84,18 +84,6 @@ public class CreditAccountService {
             return creditTariffDao.findAll();
         }
     }
-    /*
-    //public static void payFromDepositAccount()
-    // todo Refactor convert method
-    public static CreditAccount convertCreditDtoToEntity(CreditAccountDto creditAccountDto){
-        CreditAccount creditAccount = new CreditAccount();
-        creditAccount.setUserId(creditAccountDto.getUserId());
-        creditAccount.setCreditId(creditAccountDto.getAccountPropertiesId());
-        //creditAccount.setId(creditAccountDto.getId());
-        creditAccount.setAccountType(Account.UNCONFIRMED_CREDIT);
-        // todo add date
-        return creditAccount;
-    }
-    */
+
 
 }

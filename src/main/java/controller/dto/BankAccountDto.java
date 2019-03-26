@@ -6,7 +6,7 @@ public class BankAccountDto {
     protected int userId;
     protected int balance;
 
-    protected int accountPropertiesId;
+    private int accountPropertiesId;
 
     public static class Builder {
         BankAccountDto bankAccount = new BankAccountDto();

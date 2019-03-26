@@ -16,7 +16,6 @@ public enum Languages {
 
     private final Properties regexProperties;
     private final Properties textProperties;
-    //private final DateTimeFormatter dateTimeFormatter;
 
 
     // todo delete useless set of avaliable languages

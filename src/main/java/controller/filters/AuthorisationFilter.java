@@ -17,7 +17,7 @@ public class AuthorisationFilter implements Filter {
     private static final String CSS_DIRECTORY = "css/";
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override
@@ -44,7 +44,6 @@ public class AuthorisationFilter implements Filter {
                 System.out.println("ACCESS IS NOT CORRECT!!!!!!!!!!!!");
                 RolesUtility.logoutUser(httpServletRequest);
                 httpServletResponse.sendRedirect(removeServletDirectoryFromPath(path));
-                //httpServletResponse.sendRedirect(clearUrl(path) + PagesName.ERROR);
                 return;
             }
         }
@@ -64,46 +63,6 @@ public class AuthorisationFilter implements Filter {
         // guest go to some guest page
         filterChain.doFilter(servletRequest, servletResponse);
 
-        /*
-        User.ROLE roleFromPath = defineRoleFromPath(path);
-
-
-        System.out.println("Session = "+session);
-        System.out.println("roleFromPath = "+roleFromPath);
-        System.out.println("roleFromSession = "+roleFromSession);
-
-        // admin = admin
-        // user = user
-        // guest = guest
-        if(roleFromPath.equals(roleFromSession)){
-            System.out.println("ROLE FROM PATH AND SESSION ARE EQUAL");
-            filterChain.doFilter(servletRequest,servletResponse);
-            return;
-        }
-
-        RolesUtility.logoutUser(httpServletRequest);
-
-        path = removeServletDirectoryFromPath(path);
-
-        // user or admin goes to guest
-        if(roleFromPath.equals(User.ROLE.GUEST)){
-            httpServletResponse.sendRedirect(PagesName.INDEX_PAGE);
-            return;
-        }
-        System.out.println("ROLE FROM PATH AND SESSION ARE NOT EQUAL");
-        // admin goes to user
-
-        System.out.println("Filter redirect to error");
-        //httpServletResponse.sendRedirect(PagesName.ERROR);
-        // filter path
-        System.out.println("path = "+path);
-
-
-        String pathRedirect = removeRoleDirectoryFromPath(path,roleFromPath)+PagesName.ERROR;
-
-        System.out.println("redirect path = " + pathRedirect);
-        httpServletResponse.sendRedirect( pathRedirect);
-        */
 
         System.out.println("!===================!");
     }
@@ -134,19 +93,6 @@ public class AuthorisationFilter implements Filter {
         return roleFromPath.equals(roleFromSession);
     }
 
-    private boolean isRequestedPageForGuest(User.ROLE roleFromPath) {
-        return roleFromPath.equals(User.ROLE.GUEST);
-    }
-
-
-    private boolean checkAccess(User.ROLE roleFromPath, User.ROLE roleFromSession) {
-        return (roleFromPath.equals(User.ROLE.GUEST) || roleFromPath.equals(roleFromSession));
-    }
-
-    private String removeRoleDirectoryFromPath(String path, User.ROLE role) {
-        String target = role.name().toLowerCase() + "/*.*";
-        return path.replaceAll(target, "");
-    }
 
     private String removeServletDirectoryFromPath(String path) {
         return path.replaceAll(SERVLET_PATH, "");
@@ -158,10 +104,6 @@ public class AuthorisationFilter implements Filter {
 
     private boolean isCssRequest(String path) {
         return path.contains(CSS_DIRECTORY);
-    }
-
-    private String clearUrl(String path) {
-        return path.replaceAll("/*", "/");
     }
 
 }
