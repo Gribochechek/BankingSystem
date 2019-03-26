@@ -69,7 +69,7 @@ public class CreditAccountService {
 
     public static void confirmCreditAccount(int creditAccountId, int indebtedness) {
         try (CreditDao creditDao = DataBaseConfiguration.factory.createCreditDao()) {
-            creditDao.udpateCreditAccountBalanceByAccountId(creditAccountId, indebtedness);
+            creditDao.updateCreditAccountBalanceByAccountId(creditAccountId, indebtedness);
         }
     }
 

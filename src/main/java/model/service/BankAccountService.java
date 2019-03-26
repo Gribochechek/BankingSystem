@@ -33,9 +33,5 @@ public class BankAccountService {
             return bankAccountDao.pay(fromAccountId, fromUserId, toAccountId, balance);
         }
     }
-   /* todo check public static List<DepositAccount> getAllByBankAccountTypeID( int accountTypeId){
-        try(BankAccountDao bankAccountDao = DataBaseConfiguration.factory.createBankAccountDao()){
-            return bankAccountDao.findAllDepositAccounts(accountTypeId);
-        }
-    }*/
+
 }

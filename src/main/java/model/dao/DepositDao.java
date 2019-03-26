@@ -11,5 +11,5 @@ public interface DepositDao extends GenericDao<DepositAccount> {
     List<DepositAccount> findAllByUserBankAccountId(int bankAccountId);
     List<DepositAccount> findAllDepositAccounts();
 
-    void updateDepositAccountBalanceByAccountId(List<DepositAccount> depositsForUpdate);
+    void updateAllDepositAccountsBalanceByAccountId(List<DepositAccount> depositsForUpdate);
 }

@@ -126,6 +126,7 @@
 </c:if>
 
 
+
 <c:if test="${not empty requestScope.unconfirmedCredits}">
     <table class="table table-striped">
         <caption>Unconfirmed credit</caption>

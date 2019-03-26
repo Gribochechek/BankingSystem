@@ -29,7 +29,7 @@ public class JDBCCreditDao extends AbstractJDBCGenericDao<CreditAccount> impleme
     }
 
     @Override
-    public void udpateCreditAccountBalanceByAccountId(int creditId, int indebtedness) {
+    public void updateCreditAccountBalanceByAccountId(int creditId, int indebtedness) {
         try {
             PreparedStatement preparedStatement = super.getConnection()
                     .prepareStatement(Statements.UPDATE_CREDIT_ACCOUNT_BALANCE_INDEBTEDNESS_BY_BANK_ACCOUNT_ID);
@@ -43,6 +43,49 @@ public class JDBCCreditDao extends AbstractJDBCGenericDao<CreditAccount> impleme
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void updateAllCreditIndebtnessByAccountId(List<CreditAccount> creditsForUpdate) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = super.getConnection().prepareStatement(Statements.UPDATE_CREDIT_ACCOUNT_BALANCE_BY_BANK_ACCOUNT_ID);
+            for (CreditAccount credit : creditsForUpdate) {
+                preparedStatement.setInt(1, credit.getIndebtedness());
+                preparedStatement.setInt(2, credit.getId());
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //todo stacktrace
+        }
+
+    }
+
+    @Override
+    public List<CreditAccount> findAllCreditAccounts() {
+        List<CreditAccount> creditAccounts = new LinkedList<>();
+        try {
+            PreparedStatement preparedStatement = super.getConnection()
+                    .prepareStatement(Statements.SELECT_ALL_CREDIT_BY_ACCOUNT_TYPE_ID);
+            preparedStatement.setInt(1, TableConstants.ACCOUNT_TYPE_CREDIT);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Extracter<CreditAccount> creditExtracter = new Extracter<>();
+            Extracter<CreditTariff> creditTarrifExtracter = new Extracter<>();
+            CreditAccount creditAccount;
+            while (resultSet.next()) {
+                creditAccount = creditExtracter.extractEntityFromResultSet(resultSet, new CreditAccount());
+                creditAccount.setCreditTariff(creditTarrifExtracter
+                        .extractEntityFromResultSet(resultSet, new CreditTariff()));
+                creditAccounts.add(creditAccount);
+            }
+        } catch (SQLException | IllegalAccessException e) {
+            Logger.getLogger(JDBCBankAccountDao.class.getName()).error("find credits", e);
+            throw new RuntimeException(e);
+        }
+        return creditAccounts;
+    }
+
 
     @Override
     public void registerCredit(CreditAccount creditAccount) throws TariffNotExistException {

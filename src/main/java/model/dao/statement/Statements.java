@@ -157,6 +157,13 @@ public interface Statements {
             + " SET  " + BankAccountTable.BANK_ACCOUNT_BALANCE + " = ? "
             + " WHERE "
             + BankAccountTable.BANK_ACCOUNT_TABLE + "." + BankAccountTable.BANK_ACCOUNT_ID + " = ? ";
+    String UPDATE_CREDIT_ACCOUNT_BALANCE_BY_BANK_ACCOUNT_ID = "UPDATE "
+            + BankAccountTable.BANK_ACCOUNT_TABLE
+            + " SET  " + BankAccountTable.BANK_ACCOUNT_CREDIT_INDEBTEDNESS + " = ? "
+            + " WHERE "
+            + BankAccountTable.BANK_ACCOUNT_TABLE + "." + BankAccountTable.BANK_ACCOUNT_ID + " = ? ";
+
+
 
     String DELETE_CREDIT_ACCOUNT_BY_ACCOUNT_ID = "DELETE FROM " + BankAccountTable.BANK_ACCOUNT_TABLE
             + " WHERE " + BankAccountTable.BANK_ACCOUNT_ID + " = ? ";
@@ -323,6 +330,13 @@ public interface Statements {
             + " ON " + BankAccountTable.BANK_ACCOUNT_TABLE + "." + BankAccountTable.BANK_ACCOUNT_DEPOSIT_ID
             + " = "
             + DepositTable.DEPOSIT_TABLE + "." + DepositTable.DEPOSIT_ID
+            + " WHERE " + BankAccountTable.BANK_ACCOUNT_TYPE_ID + " = ?";
+
+    String SELECT_ALL_CREDIT_BY_ACCOUNT_TYPE_ID = "SELECT * FROM " + BankAccountTable.BANK_ACCOUNT_TABLE
+            + " INNER JOIN " + CreditTable.CREDIT_TABLE
+            + " ON " + BankAccountTable.BANK_ACCOUNT_TABLE + "." + BankAccountTable.BANK_ACCOUNT_CREDIT_ID
+            + " = "
+            + CreditTable.CREDIT_TABLE + "." + CreditTable.CREDIT_ID
             + " WHERE " + BankAccountTable.BANK_ACCOUNT_TYPE_ID + " = ?";
 
 

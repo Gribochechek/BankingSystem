@@ -71,9 +71,9 @@ public class DepositAccountService {
         //todo query
     }
 
-    public static int countDepositIncome(DepositAccount account, DepositTariff tarrif, long seconds) {
+    public static int countDepositIncome(DepositAccount account, long seconds) {
 //todo method
-        int incomeAmount = (int) (account.getBalance() + account.getDepositAmount() * Math.pow(((tarrif.getRate()) / 100), (double) seconds));
+        int incomeAmount = (int) (account.getBalance() + account.getDepositAmount() * Math.pow(((account.getDepositTariff().getRate()) / 100D), (double) seconds));
 
         return incomeAmount;
     }

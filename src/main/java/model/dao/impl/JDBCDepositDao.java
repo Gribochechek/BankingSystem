@@ -1,6 +1,5 @@
 package model.dao.impl;
 
-import jobs.JobsExecutor;
 import model.dao.DepositDao;
 import model.dao.extracter.Extracter;
 import model.dao.statement.Statements;
@@ -8,7 +7,6 @@ import model.dao.statement.TableConstants;
 import model.entity.DepositAccount;
 import model.entity.DepositTariff;
 import model.exception.TariffNotExistException;
-import model.service.DepositAccountService;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -176,21 +174,22 @@ public class JDBCDepositDao extends AbstractJDBCGenericDao<DepositAccount> imple
     }
 
     @Override
-    public void updateDepositAccountBalanceByAccountId(List<DepositAccount> depositsForUpdate) {
+    public void updateAllDepositAccountsBalanceByAccountId(List<DepositAccount> depositsForUpdate) {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = super.getConnection()
                     .prepareStatement(Statements.UPDATE_DEPOSIT_ACCOUNT_BALANCE_BY_BANK_ACCOUNT_ID);
             for (DepositAccount deposit : depositsForUpdate) {
-                deposit.setBalance(DepositAccountService.countDepositIncome(deposit, deposit.getDepositTariff(), JobsExecutor.summarySeconds));
                 preparedStatement.setInt(1, deposit.getBalance());
                 preparedStatement.setInt(2, deposit.getId());
                 preparedStatement.addBatch();
 
             }
-            preparedStatement.executeUpdate();
+            preparedStatement.executeBatch();
+            //preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            //todo stacktrace
         }
 
 

@@ -7,9 +7,10 @@ import java.util.concurrent.TimeUnit;
 public class JobsExecutor {
 
     private static final int HOURS = 0;
-    private static final int MINUTES = 5;
+    private static final int MINUTES = 1;
     private static final int SECONDS = 0;
-    public static long summarySeconds;
+    private static long summarySeconds;
+    private static ScheduledExecutorService executorService;
 
     public static void startJobs() {
         long hoursToSeconds = TimeUnit.HOURS.toSeconds(HOURS);
@@ -18,7 +19,21 @@ public class JobsExecutor {
 
         summarySeconds = hoursToSeconds + minutesToSeconds + seconds;
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-        executorService.schedule(new AccountBalanceIncrementorImpl(), summarySeconds, TimeUnit.SECONDS);
+        executorService = Executors.newScheduledThreadPool(1);
+        executorService.scheduleWithFixedDelay(new AccountBalanceIncrementorImpl(), 0, summarySeconds, TimeUnit.SECONDS);
     }
+
+    public static void destroy() {
+        if (executorService == null || executorService.isShutdown()) {
+            return;
+        }
+        executorService.shutdown();
+    }
+
+
+    public static long getSummarySeconds() {
+        return summarySeconds;
+    }
+
+
 }

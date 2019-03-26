@@ -5,6 +5,7 @@ import controller.command.CommandConstants;
 import controller.command.CommandManager;
 import controller.command.LoggerConstants;
 import controller.utility.RolesUtility;
+import jobs.JobsExecutor;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletConfig;
@@ -21,7 +22,7 @@ public class Servlet extends HttpServlet {
         super.init(config);
         config.getServletContext().setAttribute(Parameters.LOGGED_USERS, new HashSet<String>());
         // todo uncomment
-        //JobsExecutor.startJobs();
+        JobsExecutor.startJobs();
     }
 
     @Override
@@ -57,5 +58,11 @@ public class Servlet extends HttpServlet {
             req.getRequestDispatcher(page).forward(req, resp);
         }
 
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        JobsExecutor.destroy();
     }
 }
