@@ -12,6 +12,7 @@ public class JobsExecutor {
     private static long summarySeconds;
     private static ScheduledExecutorService executorService;
 
+
     public static void startJobs() {
         long hoursToSeconds = TimeUnit.HOURS.toSeconds(HOURS);
         long minutesToSeconds = TimeUnit.MINUTES.toSeconds(MINUTES);
