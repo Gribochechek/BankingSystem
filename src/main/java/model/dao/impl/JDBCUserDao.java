@@ -1,7 +1,6 @@
 package model.dao.impl;
 
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import model.dao.UserDao;
 import model.dao.extracter.Extracter;
 import model.dao.statement.Statements;
@@ -9,10 +8,7 @@ import model.entity.User;
 import model.exception.NotUniqueException;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +40,7 @@ public class JDBCUserDao extends AbstractJDBCGenericDao<User> implements UserDao
 
             preparedStatement.execute();
 
-        } catch (MySQLIntegrityConstraintViolationException e) {
+        } catch (SQLIntegrityConstraintViolationException e) {
             Logger.getLogger(JDBCBankAccountDao.class.getName()).debug("not unique", e);
             throw new NotUniqueException(user.getLogin());
         } catch (SQLException e) {
